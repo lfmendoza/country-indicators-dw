@@ -7,34 +7,34 @@ El proyecto integra datos de dos fuentes (PostgreSQL y MongoDB) en un data wareh
 ## Componentes
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         country-indicators-dw                            │
-├─────────────────────────────────────────────────────────────────────────┤
-│  data/sql           data/mongo         config/        ddl/               │
-│  (CSV)               (JSON)            (YAML)         (SQL init)        │
-│      │                    │                │                │            │
-│      ▼                    ▼                ▼                ▼            │
-│  scripts/load_postgres_sources.py   scripts/load_mongo_sources.py        │
-│      │                    │                                               │
-│      ▼                    ▼                                               │
-│  ┌──────────────┐   ┌──────────────┐                                     │
-│  │  PostgreSQL  │   │   MongoDB    │   ← Fuentes (staging)               │
-│  │  (public)    │   │  (lab DB)    │                                     │
-│  └──────┬───────┘   └──────┬───────┘                                     │
-│         │                   │                                             │
-│         └─────────┬─────────┘                                             │
-│                   ▼                                                       │
-│            etl/ (extract → transform → load)                              │
-│                   │                                                       │
-│                   ▼                                                       │
-│  ┌──────────────────────────────────┐                                    │
-│  │  PostgreSQL – schema warehouse   │   ← Data warehouse                │
-│  │  (dim_pais, hecho_indicadores)   │                                    │
-│  └──────────────────────────────────┘                                    │
-│                   │                                                       │
-│  scripts/run_etl.py   dags/country_indicators_dw_etl_dag.py (Airflow)     │
-│  queries/insights.sql                                                    │
-└─────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                         country-indicators-dw                          │
+├────────────────────────────────────────────────────────────────────────┤
+│  data/sql           data/mongo         config/        ddl/             │
+│  (CSV)               (JSON)            (YAML)         (SQL init)       │
+│      │                    │                │                │          │
+│      ▼                    ▼                ▼                ▼          │
+│  scripts/load_postgres_sources.py   scripts/load_mongo_sources.py      │
+│      │                    │                                            │
+│      ▼                    ▼                                            │
+│  ┌──────────────┐   ┌──────────────┐                                   │
+│  │  PostgreSQL  │   │   MongoDB    │   ← Fuentes (staging)             │
+│  │  (public)    │   │  (lab DB)    │                                   │
+│  └──────┬───────┘   └──────┬───────┘                                   │
+│         │                  │                                           │
+│         └─────────┬────────┘                                           │
+│                   ▼                                                    │
+│            etl/ (extract → transform → load)                           │
+│                   │                                                    │
+│                   ▼                                                    │
+│  ┌──────────────────────────────────┐                                  │
+│  │  PostgreSQL – schema warehouse   │   ← Data warehouse               │
+│  │  (dim_pais, hecho_indicadores)   │                                  │
+│  └──────────────────────────────────┘                                  │
+│                   │                                                    │
+│  scripts/run_etl.py   dags/country_indicators_dw_etl_dag.py (Airflow)  │
+│  queries/insights.sql                                                  │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Capas

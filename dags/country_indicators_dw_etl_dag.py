@@ -6,8 +6,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.sdk import DAG
+from airflow.providers.standard.operators.python import PythonOperator
 
 default_args = {
     "owner": "country_indicators_dw",
@@ -28,7 +28,7 @@ with DAG(
     dag_id="country_indicators_dw_etl",
     default_args=default_args,
     description="SQL + NoSQL to warehouse",
-    schedule_interval=timedelta(hours=24),
+    schedule=timedelta(seconds=10),
     start_date=datetime(2026, 3, 1),
     catchup=False,
     tags=["country-indicators-dw", "etl", "warehouse"],
