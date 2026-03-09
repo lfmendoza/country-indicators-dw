@@ -19,7 +19,7 @@ Alternativas: `geo-indicators-etl`, `country-analytics-dw`.
 ## Requisitos
 
 - **Python 3.10+**
-- **Docker y Docker Compose** (recomendado) o PostgreSQL 15+ y MongoDB 7+ en local
+- **Docker y Docker Compose** (recomendado) o PostgreSQL 16+ y MongoDB 8.2+ en local
 
 ---
 
@@ -115,10 +115,10 @@ python scripts/run_etl.py
 ### 7. Ejecutar consultas de insights
 
 ```bash
-psql -h localhost -U ci_dw -d country_indicators_dw -f queries/insights.sql
+psql -h localhost -p 5433 -U ci_dw -d country_indicators_dw -f queries/insights.sql
 ```
 
-(Contraseña por defecto en Docker: `change_me_ci_dw`.)
+(Contraseña por defecto en Docker: `change_me_ci_dw`. Con Docker, use puerto `5433`.)
 
 ---
 
@@ -138,7 +138,7 @@ Alternativa sin Airflow: programar `python scripts/run_etl.py` con **cron** (Lin
 | Variable | Descripción | Valor por defecto |
 |----------|-------------|--------------------|
 | POSTGRES_HOST | Host PostgreSQL | localhost |
-| POSTGRES_PORT | Puerto PostgreSQL | 5432 |
+| POSTGRES_PORT | Puerto PostgreSQL | 5433 (Docker publica en 5433 para evitar conflicto con 5432) |
 | POSTGRES_USER | Usuario PostgreSQL | ci_dw |
 | POSTGRES_PASSWORD | Contraseña PostgreSQL | change_me_ci_dw |
 | POSTGRES_DB | Base de datos | country_indicators_dw |
