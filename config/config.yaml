@@ -1,0 +1,25 @@
+project:
+  name: country-indicators-dw
+  version: "1.0.0"
+
+paths:
+  data_sql: "data/sql"
+  data_mongo: "data/mongo"
+
+postgres:
+  source_schema: public
+  warehouse_schema: warehouse
+
+mongo:
+  collection_big_mac: paises_big_mac
+  collection_costos: costos_turisticos
+
+etl:
+  batch_id_env: ETL_BATCH_ID
+  default_chunk_size: 1000
+  full_refresh_hecho: true
+
+quality:
+  reject_duplicate_pais: true
+  require_normalized_pais: true
+  log_skipped_rows: true
