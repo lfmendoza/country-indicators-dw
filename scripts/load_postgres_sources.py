@@ -10,8 +10,10 @@ from pathlib import Path
 import pandas as pd
 import psycopg2
 from psycopg2.extras import execute_values
+from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -25,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 def get_connection():
     host = os.environ.get("POSTGRES_HOST", "localhost")
-    port = int(os.environ.get("POSTGRES_PORT", "5432"))
+    port = int(os.environ.get("POSTGRES_PORT", "5433"))
     user = os.environ.get("POSTGRES_USER", "ci_dw")
     password = os.environ.get("POSTGRES_PASSWORD", "change_me_ci_dw")
     dbname = os.environ.get("POSTGRES_DB", "country_indicators_dw")
